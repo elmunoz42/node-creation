@@ -1,0 +1,5 @@
+name = node_creation2
+description = Module that creates nodes.
+package = Own
+core = 7.x
+files[] = node_creation2.module

@@ -1,0 +1,39 @@
+<?php
+  function node_creation2_menu() {
+  $items['node_creation2'] = array(
+      'title' => 'node_creation',
+      'page callback' => 'node_creation_user_insert',
+      'page arguments' => array('node_creation2_form'),
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  return $items;
+  }
+
+  function node_creation_user_insert(&$edit,$account,$category) {
+      $node = new stdClass();
+      $node->type = 'article';
+      node_object_prepare($node);
+
+      $node->language = LANGUAGE_NONE;
+      $node->title = 'An article about user  was created.';
+      $node->uid = $account->uid;
+      node_save($node);
+  }
+
+  //
+  //   $node = new stdClass();
+  //   $node->title = "Test Page";
+  //   $node->type = "page";
+  //   node_object_prepare($node);
+  //   $node->language = LANGUAGE_NONE;
+  //   $node->body[0]['value']=array("blah blah blah test 123!");
+  //   $node->status = 1;
+  //   $node->promote = 0;
+  //   $node->comment = 1;
+  //
+  //   $node = node_submit($node);
+  //   node_save($node);
+  //   $form_state['redirect']  = 'node_creation';
+  //
+  // }

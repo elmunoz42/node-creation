@@ -1,0 +1,44 @@
+<?php
+  function node_creation_menu() {
+  $items['node_creation'] = array(
+      'title' => 'node_creation',
+      'page callback' => 'node_creation',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  $items['node_alteration'] = array(
+      'title' => 'node_alteration',
+      'page callback' => 'node_alteration',
+      'page arguments' => arg(1),
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+  }
+
+  function node_alteration($name){
+    $output = "holla me llamo es " . $name;
+    return $output;
+  }
+
+  function node_creation() {
+    $body_text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
+
+    $node = new stdClass();
+    $node->type = 'page';
+    node_object_prepare($node);
+
+    $node->title    = 'Node Created Programmatically on';
+    $node->language = LANGUAGE_NONE;
+
+    $node->body[$node->language][0]['value'] = $body_text;
+    $node->body[$node->language][0]['summary'] = text_summary($body_text);
+    $node->body[$node->language][0]['format']  = 'filtered_html';
+
+    $path = 'content/programmatically_created_node_';
+    $node->path = array('alias' => $path);
+
+    node_save($node);
+    return "Node was created! Thanks Brian Gonzales.";
+  }
