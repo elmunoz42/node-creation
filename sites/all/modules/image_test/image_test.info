@@ -1,0 +1,5 @@
+name=Image Test
+description=Module to test displaying an image
+package=Own
+core=7.x
+files[]=image_test.module
