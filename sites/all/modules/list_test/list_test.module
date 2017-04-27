@@ -1,0 +1,51 @@
+<?php
+    function list_test_menu() {
+        $items['list_test'] = array(
+            'title' => 'List Test',
+            'page callback'=> 'drupal_get_form',
+            'page arguments'=> array('list_test_form'),
+            'access callback'=> TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+        $items['success_page']=array(
+            'title' => "Here's your list",
+            'page callback' => 'display_list',
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+        return $items;
+    }
+
+    function list_test_form($form, &$form_state) {
+        $form['apples']=array(
+            '#title' => 'apples',
+            '#type' => 'textfield',
+            '#description' => t('How many apples?'),
+            '#element_validate' => array('element_validate_integer_positive'),
+        );
+        $form['oranges']=array(
+            '#title' => 'oranges',
+            '#type' => 'textfield',
+            '#description' => t('How many oranges?'),
+            '#element_validate' => array('element_validate_integer_positive'),
+        );
+        $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Go',
+        );
+        return $form;
+    }
+
+    function list_test_form_submit($form, &$form_state){
+        $_SESSION['apple_number'] = $form_state['values']['apples'];
+        $_SESSION['orange_number'] = $form_state['values']['oranges'];
+
+        $form_state['redirect'] = 'success_page';
+    }
+    function display_list() {
+        return
+        '<ul>
+            <li>' . $_SESSION['apple_number'] . ' apples.</li>
+            <li>' . $_SESSION['orange_number'] . ' oranges.</li>
+        </ul>';
+    }

@@ -1,0 +1,5 @@
+name=List Test
+description=Module that creates a list.
+package=Own
+core=7.x
+files=list_test.module
