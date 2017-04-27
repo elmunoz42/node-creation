@@ -21,13 +21,15 @@
             '#title' => 'apples',
             '#type' => 'textfield',
             '#description' => t('How many apples?'),
-            '#element_validate' => array('element_validate_integer_positive'),
+            '#element_validate' => array('element_validate_number', 'element_validate_range','element_validate_even'),
+            '#required' => TRUE,
         );
         $form['oranges']=array(
             '#title' => 'oranges',
             '#type' => 'textfield',
             '#description' => t('How many oranges?'),
-            '#element_validate' => array('element_validate_integer_positive'),
+            '#element_validate' => array('element_validate_number', 'element_validate_range','element_validate_even'),
+            '#required' => TRUE,
         );
         $form['submit'] = array(
         '#type' => 'submit',
@@ -42,6 +44,19 @@
 
         $form_state['redirect'] = 'success_page';
     }
+
+    function element_validate_range($element){
+        if ($element['#value']<3 || $element['#value']>50){
+            form_error($element, t('Please enter an even number between 3 and 50.'));
+        }
+    }
+
+    function element_validate_even($element){
+        if ($element['#value']%2!=0){
+            form_error($element, t('Please enter an even number.'));
+        }
+    }
+
     function display_list() {
         return
         '<ul>
