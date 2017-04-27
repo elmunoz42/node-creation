@@ -1,0 +1,5 @@
+name = favorites
+description = Module that dynamically generates menu links and items to display.
+package = Own
+core = 7.x
+filse[] = favorites.module

@@ -1,0 +1,30 @@
+<?php
+    function favorites_menu(){
+        $favorites = array('breakfast'=>['hash-browns', 'bacon', 'juice'],'dinner'=>['steak','baked potatoe']);
+        foreach ($favorites as $favorite=>$dishes) {
+            $route = $favorite;
+            foreach ($dishes as $dish) {
+                $route .= '/' . $dish;
+            }
+            var_dump($route);
+            $items[$route]=array(
+                'title'=>$favorite,
+                'page callback'=>'display_favorites',
+                'page arguments'=>array(1,2,3,4),
+                'access callback'=>TRUE,
+                'type'=>MENU_NORMAL_ITEM,
+            );
+        }
+        return $items;
+    }
+
+    function display_favorites($arg1, $arg2, $arg3, $arg4) {
+        $favorite_chosen = explode('/', $_GET['q']);
+        $output = 'your favorite is ' . $favorite_chosen[0] . ' which contains:
+            <ul>
+                <li>'.$arg1.'</li>
+                <li>'.$arg2.'</li>
+                <li>'.$arg3.'</li>
+            </ul>';
+        return $output;
+    }

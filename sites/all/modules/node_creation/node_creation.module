@@ -23,22 +23,25 @@
   }
 
   function node_creation() {
+    // TODO: Use news api bellow with either Curl or drupal_http_request
+    // https://newsapi.org/v1/articles?source=techcrunch&apiKey=5a8e3f6939a247149753b4ac1486ee7e
     $body_text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. <img src='https://i.ytimg.com/vi/-5fKvN-RwKs/hqdefault.jpg'>Tsunami!</img>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
 
     $node = new stdClass();
-    $node->type = 'page';
+    $node->type = 'article';
     node_object_prepare($node);
 
-    $node->title    = 'Node Created Programmatically on';
+    $node->title = 'Node Created Programmatically on';
     $node->language = LANGUAGE_NONE;
 
     $node->body[$node->language][0]['value'] = $body_text;
     $node->body[$node->language][0]['summary'] = text_summary($body_text);
-    $node->body[$node->language][0]['format']  = 'full_html';
+    $node->body[$node->language][0]['format'] = 'full_html';
 
-    $path = 'content/programmatically_created_node_';
-    $node->path = array('alias' => $path);
+    $node_path = 'content/programmatically_created_node';
+    $node->path = array('alias' => $node_path);
 
     node_save($node);
+    drupal_goto('content/programmatically_created_node');
     return "Node was created! Thanks Brian Gonzales.";
   }
